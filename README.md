@@ -1,6 +1,5 @@
-# Feather--一个快速开发的web服务器框架
+# Feather - a fast-developing web server framework
 
-##Feather - a fast-developing web server framework
 
 Feather is a modern c++ web framework for rapid development. Feather's goal is to allow users to develop a web site with minimal effort and cost.
 

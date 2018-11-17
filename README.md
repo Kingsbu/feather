@@ -1,56 +1,60 @@
 # Feather--一个快速开发的web服务器框架
 
-Feather是一个适合快速开发的modern c++ web框架，Feather的目标是让使用者以最小的精力和成本来开发一个web网站。
+##Feather - a fast-developing web server framework
 
-现在很多web框架都非常庞大，学习成本高，而Feather正是为了解决这些问题的，它就像它的名字feather那样轻盈，所有的一切都是为了让用户非常方便又快速地开发而不是陷入到框架的细节当中。
+Feather is a modern c++ web framework for rapid development. Feather's goal is to allow users to develop a web site with minimal effort and cost.
 
-一个好的框架应该是能让用户轻松实现自己的想法而不是成为框架的奴隶。如果你希望轻松快速地开发一个web框架，而无需花费大量的精力去学习框架细节的话，那么Feather非常适合你！
+Nowadays, many web frameworks are very large and costly to learn. Feather is just trying to solve these problems. It is as light as its name, and everything is designed to make it very convenient and fast for users to develop rather than fall into Among the details of the frame.
 
-## Feather是什么？
+A good framework should be to allow users to easily implement their ideas rather than become slaves to the framework. If you want to develop a web framework quickly and easily without having to spend a lot of effort to learn the details of the framework, then Feather is perfect for you! 
 
-Feather作为一个快速开发框架，它的目标是让web服务器开发变得简单。它主要有下面几个特点：
 
-1. 简洁易用
-2. 高性能，modern c++（c++17）开发
+## What is Feather?
+
+As a rapid development framework, Feather's goal is to make web server development easy. It mainly has the following characteristics:
+
+1. Simple and easy to use
+2. Hich performance, modern c++（c++17）development
 3. header only
-4. 跨平台
-5. 支持编译期反射
-6. 支持AOP
+4. Cross-platform
+5. Support for compile-time reflection
+6. Support AOP
 
-Feather框架的核心包括：
-1. 一个易用的http库，支持http1.x, https, websocket
-2. 一个功能强大的html模版引擎
-3. 一个可扩展的ORM库，支持多种数据库（mysql,postgresql，sqlite）
-4. 一个可扩展序列化库，支持多种格式(json, xml)
+The core of the Feather framework includes:
 
-## Feather的架构
+1. An easy-to-use http library that supports http1.x, https, websocket
+2. A powerful html template engine
+3. An extensible ORM library that supports multiple databases (mysql, postgresql, sqlite)
+4. An extensible serialization library that supports multiple formats (json, xml) 
 
-下面是Feather的架构图:
+## Feather's architecture
+
+Here is the architecture diagram of Feather:
 
 ![Feather的架构图](https://github.com/qicosmos/feather/blob/master/framework.png)：
 
-1. http组件：  cinatra
-2. ORM组件：   ormpp
-3. 序列化组件： iguana
-4. html 模版： inja
+1. http component：  cinatra
+2. ORM component：   ormpp
+3. Serialization component： iguana
+4. html template： inja
 
-Feather内部的四个核心组件是松耦合的，Feather只是把它们像搭积木一样搭在一起。
+The four core components inside Feather are loosely coupled, and Feather just puts them together like building blocks.
 
-## Feather的使用
+## How to use Feather
 
-以一个简单的例子展示如何使用Feather，比如显示文章列表，几乎每个网站都有这个功能。
+A simple example shows how to use Feather, such as displaying a list of articles, which is available on almost every website.
 
-获取文章列表的功能很简单，它底层数据部分是一个文章表，业务逻辑层是获取这些列表，然后做html渲染。对外接口部分是一个http服务，前端后端交互的数据格式为json。为了简单起见就不考虑缓存之类的。
+The function of getting a list of articles is very simple. The underlying data part is an article table. The business logic layer is to get these lists and then do html rendering. The external interface part is an http service, and the data format of the front-end back-end interaction is json. For the sake of simplicity, caches and the like are not considered.
 
-那么要实现这个文章列表功能用Feather怎么做呢？可以按照这些步骤去开发：
+So how do you do this with Feather to implement this article list function? You can follow these steps to develop:
 
-1. 提供获取文章列表的http接口；
-2. 通过ORM提供数据库访问功能；
-3. 编写业务逻辑，根据用户请求获取文章列表并通过html模版做渲染；
+1. Provide an http interface to get a list of articles;；
+2. Provide database access through ORM;；
+3. Write business logic, get a list of articles based on user requests and render through html template;
 
-接下来看看这些步骤具体是怎么做的。
+Let's implement the three steps above
 
-### 获取文章列表的http接口
+### Get the http interface of the article list
 
 	const int max_thread_num = 4;
 	http_server server(max_thread_num);
@@ -59,7 +63,7 @@ Feather内部的四个核心组件是松耦合的，Feather只是把它们像搭
 	article_controller article_ctl;
 	server.set_http_handler<GET, POST>("/get_article_list", &article_controller::get_article_list, &article_ctl);
 
-其中login接口是这样的：
+The login interface is like this:
 
 	class article_controller{
 	public:
@@ -68,17 +72,15 @@ Feather内部的四个核心组件是松耦合的，Feather只是把它们像搭
             res.set_status_and_content(status_type::ok);
         }
 	};
-接下来就可以测试这个http服务接口了，客户端只要发送一个http请求即可。比如发送一个这样的请求
-http://127.0.0.1/get_article_list
-服务器会自动路由到article_controller::get_article_list函数中，如果请求不对则会返回http错误给客户端。当服务器收到这样的请求之后就表明服务器提供的这个http服务是可用的。
+Next, you can test the http service interface, and the client only needs to send an http request. For example, sending a request like this http://127.0.0.1/get_article_list server will be automatically routed to the article_controller::get_article_list function, if the request is not correct, it will return an http error to the client. When the server receives such a request, it indicates that the http service provided by the server is available.
 
-接下来需要编写数据库部分的代码，由于有了ORM，所以你可以很方便地编写数据库部分的代码了，同样很简单。
+Next, you need to write the code of the database part. Thanks to the ORM, you can easily write the code of the database part, which is also very simple.
 
 
-### 通过ORM提供数据库访问功能
-登录业务涉及到一个用户表，因此我们需要创建这个表，不过在创建数据库之前先确定你选用什么数据库，Feather的ORM支持mysql, postgresql和sqlite三种数据库，假设我们的数据库是mysql。我们可以通过下面的代码来创建一个用户表。
+### Provide database access through ORM
+Login business involves a user table, so we need to create this table, but before you create the database to determine what database you choose, Feather's ORM supports mysql, postgresql and sqlite three databases, assuming our database is mysql. We can create a user table with the following code.
 
-1.创建文章表
+1.Create an article table
 
 	struct article{
         int id;
@@ -94,9 +96,9 @@ http://127.0.0.1/get_article_list
 	mysql.connect("127.0.0.1", "root", "12345", "testdb")
 	mysql.create_table<article>(ormpp_auto_key{ ID(article::id) });
 
-dao.create_table< article >将会在testdb数据库中自动创建一个article表，其中id字段是自增长的。
+Dao.create_table< article > will automatically create an article table in the testdb database, where the id field is self-growth.
 
-2.编写获取文章列表的逻辑（包含访问数据库）
+2. Write the logic to get the list of articles (including access to the database)
 
 	void get_article_list(const cinatra::request& req, cinatra::response& res){
 		auto page_s = req.get_query_value("page");
@@ -115,15 +117,15 @@ dao.create_table< article >将会在testdb数据库中自动创建一个article�
 		res.set_status_and_content(status_type::ok, ss.str());
     }
 
-访问数据库，序列化为json返回给客户端。
+Access the database, serialize it to json and return it to the client.
 
-详细的例子你可以看[github上的代码](https://github.com/qicosmos/feather)。
+For a detailed example, you can look <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;prev=search&amp;rurl=translate.google.com&amp;sl=zh-CN&amp;sp=nmt4&amp;u=https://github.com/qicosmos/feather&amp;xid=17259,15700022,15700124,15700149,15700186,15700191,15700201&amp;usg=ALkJrhg4lESHy4YwXTsjZ9-9uEj-U6umhg">at the code on github</a> 
 
-## Demo示例
+## Demo example
 
-我们用Feather开发了一个社区网站，地址在这里：http://purecpp.org/
+We developed a community website with Feather, here：http://purecpp.org/
 
-Feather社区：
+Feather Community：
 ![Feather社区](https://github.com/qicosmos/feather/blob/master/demo.png)
 
 ## benchmark
@@ -131,15 +133,15 @@ ab -c50 -n3000 xxxurl
 
 ![feather benchmark](https://github.com/qicosmos/feather/blob/master/qps.png)
 
-## 致谢
+## Acknowledgement
 
-Feather社区网站由我和网友[XMH](https://github.com/xmh0511/)共同开发完成（花了两天的业余时间），XMH也是cinatra的忠实用户，不但贡献了很多代码，还提供了很多宝贵的建议，在此表示衷心的感谢！
+The Feather community website was developed by me and the netizen [XMH](https://github.com/xmh0511/) (it took two days of spare time), XMH is also a loyal user of cinatra, not only contributed a lot of code, but also provided a lot of valuable suggestions, I would like to express my heartfelt thanks!
 
-XMH是一名热爱编程的程序猿，平时从事c++，web，移动端等开发。从事过游戏后台和APP开发。也是个忠实的mordern c++粉丝，追随着cpp的发展，喜欢通过元编程做一些小工具。热爱开源社区，也是开源项目feather的使用者，希望feather能为更多的开发者所使用，社区发展越来越好。
+XMH is a program that loves programming. It is usually engaged in c++, web, mobile and other development. Engaged in game background and APP development. Also a loyal mordern c++ fan, following the development of cpp, like to do some small tools through metaprogramming. I love the open source community, and I am also a user of the open source project. I hope that Feather can be used by more developers, and the community is getting better and better.
 
-希望有更多人能加入进来把Feather完善得更好。
+I hope more people can join in to make Feather better.
 
-## 联系我们
+## Contact us
 
 purecpp@163.com
 

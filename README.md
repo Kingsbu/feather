@@ -3,9 +3,9 @@
 
 Feather is a modern c++ web framework for rapid development. Feather's goal is to allow users to develop a web site with minimal effort and cost.
 
-Nowadays, many web frameworks are very large and costly to learn. Feather is just trying to solve these problems. It is as light as its name, and everything is designed to make it very convenient and fast for users to develop rather than fall into Among the details of the frame.
+Todays web frameworks are very large and take a long time to learn. Feather is a light webframe that tries to solve this learning curve. Feather is designed to make it very convenient and fast for users to develop rather than fall into the trap of figuring out the details of the webframe.
 
-A good framework should be to allow users to easily implement their ideas rather than become slaves to the framework. If you want to develop a web framework quickly and easily without having to spend a lot of effort to learn the details of the framework, then Feather is perfect for you! 
+A good framework should allow users to  have an easy way to implement their ideas, rather than become slaves to the framework. If you want to develop a web framework quickly and easily without having to spend a lot of effort to learn the details of the framework, then Feather is perfect for you! 
 
 
 ## What is Feather?
